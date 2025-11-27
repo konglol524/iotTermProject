@@ -129,12 +129,13 @@ def detect_objects(img):
         idx = int(detections[0, 0, i, 1])
         
         # Only process detections with reasonable confidence
-        if confidence > 0.6:
+        if confidence > 0.8:
             label_name = CLASSES[idx]
             found_anything = True
             
             # Check if the detected object is a bottle (Index 5)
             if label_name == "bottle":
+                print(f"[DETECTION] Detected bottle with {confidence*100:.1f}% confidence")
                 # Compute bounding box coordinates (scale back to original size)
                 box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
                 (startX, startY, endX, endY) = box.astype("int")
